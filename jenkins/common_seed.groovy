@@ -24,7 +24,7 @@ def jobName = "$reponame"
                             url(gitRepoUrl)
                             credentials('github_credentials')
                         }
-                        branches('main')
+                        branches('master')
                         extensions {
                             cleanBeforeCheckout()
                         }
