@@ -4,15 +4,21 @@ def projectName = pipelineParams.ecrRepoName
 pipeline {
  agent any
   environment {
-    registry = "ybmsr/${projectName}"
-    registryCredential = 'dockerhub_credentials'
+    registry = "mashood6106/${projectName}"
+    registryCredential = 'dockerhub_credentials	'
     dockerImage = ''
   }
   stages {
+   stage('build'){
+             
+             steps{
+                 sh 'mvn package'
+             }
+         }
     stage('Building image') {
       steps{
         script {
-          dockerImage = docker.build registry + ":$BUILD_NUMBER"
+          dockerImage = docker.build registry + ":v$BUILD_NUMBER"
         }
       }
     }
@@ -27,7 +33,7 @@ pipeline {
     }
     stage('Remove old docker image') {
       steps{
-        sh "docker rmi $registry:$BUILD_NUMBER"
+        sh "docker rmi $registry:v$BUILD_NUMBER"
       }
     }
   }
