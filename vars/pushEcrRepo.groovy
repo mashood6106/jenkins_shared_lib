@@ -5,13 +5,19 @@ pipeline {
    agent any
    environment
     {
-        VERSION = "${BUILD_NUMBER}"
+        VERSION = "v${BUILD_NUMBER}"
         PROJECT = "${projectName}"
         IMAGE = "$PROJECT:$VERSION"
-        ECRURL = 'https://336466435446.dkr.ecr.ap-south-1.amazonaws.com/${projectName}'
-        ECRCRED = 'ecr:ap-south-1:awscredentials'
+        ECRURL = 'https://018826170425.dkr.ecr.ap-south-1.amazonaws.com/${projectName}'
+        ECRCRED = 'ecr:ap-south-1:ecr_jenkins_credentials'
     }
     stages {
+       stage('build'){
+             
+             steps{
+                 sh 'mvn package'
+             }
+         }
          stage('Image Build'){
              steps{
                  script{
