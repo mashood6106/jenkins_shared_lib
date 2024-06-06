@@ -3,6 +3,9 @@ def projectName = pipelineParams.ecrRepoName
 
 pipeline {
  agent any
+   tools {
+    jdk 'java8'
+  }
   environment {
     registry = "mashood6106/${projectName}"
     registryCredential = 'dockerhub_credentials	'
